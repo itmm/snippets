@@ -1,3 +1,4 @@
 *.o
+cast_order
 log
 rot13
