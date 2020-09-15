@@ -3,3 +3,5 @@ cast_order
 log
 rot13
 env
+max-time
+zinflate

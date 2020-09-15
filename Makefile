@@ -1,5 +1,8 @@
 Cs = $(wildcard *.c)
-EXEs = $(Cs:.c=)
+CXXs = $(wildcard *.cpp)
+EXEs = $(Cs:.c=) $(CXXs:.cpp=)
+
+CXXFLAGS += -Wall -std=c++17 -lboost_iostreams
 
 .PHONY: all clean
 
