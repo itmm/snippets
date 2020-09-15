@@ -8,6 +8,10 @@ CXXFLAGS += -Wall -std=c++17 -lboost_iostreams
 
 all: $(EXEs)
 
+%.cpp: %.md
+	@echo "HX $^"
+	@which hx >/dev/null && hx $^ || true
+
 log: log.o
 	@echo "LD log"
 	@$(CC) $^ -lm -o $@

@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Small hex dump</title>
+<link rel="stylesheet" type="text/css" href="slides/slides.css"></head>
+<body>
+<h1>Small hex dump</h1>
+<div class="slides">
+<div class="page">
+<div class="slide slide-header"><div class="slide-nr">1</div><div class="headers">
+<h1>Small hex dump</h1>
+</div></div>
+<ul><li>
+minimal implementation of the <code><span class="var">hd</span></code> utility in C++
+</li></ul>
+</div>
+<div class="page"><div class="slide"><div class="slide-nr">2</div>
+<code>
+<span class="macro">@Def(<span class="name">file: dh.cpp</span>)</span><br/>
+<span class="in1"></span><span class="macro">@put(<span class="name">includes</span>)</span><br/>
+<span class="in1"></span><span class="macro">@put(<span class="name">globals</span>)</span><br/>
+<span class="in1"></span><span class="type">int</span> <span class="fn">main</span>() {<br/>
+<span class="in2"></span><span class="macro">@put(<span class="name">main</span>)</span><br/>
+<span class="in1"></span>}<br/>
+<span class="macro">@End(<span class="name">file: dh.cpp</span>)</span><br/>
+</code></div>
+<ul><li>
+coarse structure of the program
+</li></ul>
+</div>
+<div class="page"><div class="slide"><div class="slide-nr">3</div>
+<code>
+<span class="macro">@def(<span class="name">includes</span>)</span><br/>
+<span class="in1"></span><span class="keyword">#include</span> &lt;<span class="var">iostream</span>&gt;<br/>
+<span class="in1"></span><span class="keyword">#include</span> &lt;<span class="var">iomanip</span>&gt;<br/>
+<span class="in1"></span><span class="keyword">#include</span> &lt;<span class="var">cctype</span>&gt;<br/>
+<span class="macro">@end(<span class="name">includes</span>)</span><br/>
+</code></div>
+</div>
+<div class="page"><div class="slide"><div class="slide-nr">4</div>
+<code>
+<span class="macro">@def(<span class="name">globals</span>)</span><br/>
+<span class="in1"></span><span class="keyword">constexpr</span> <span class="type">int</span> <span class="var">bytes_per_row</span> { <span class="num">16</span> };<br/>
+<span class="in1"></span><span class="keyword">constexpr</span> <span class="type">int</span> <span class="var">bytes_per_group</span> { <span class="num">8</span> };<br/>
+<span class="in1"></span><span class="keyword">constexpr</span> <span class="type">int</span> <span class="var">addr_size</span> {<br/>
+<span class="in2"></span><span class="num">2</span> * <span class="fn">sizeof</span>(<span class="var">size_t</span>)<br/>
+<span class="in1"></span>};<br/>
+<span class="macro">@end(<span class="name">globals</span>)</span><br/>
+</code></div>
+</div>
+<div class="page"><div class="slide"><div class="slide-nr">5</div>
+<code>
+<span class="macro">@add(<span class="name">globals</span>)</span><br/>
+<span class="in1"></span><span class="keyword">static</span> <span class="type">char</span> <span class="var">row</span>[<span class="var">bytes_per_row</span> + <span class="num">1</span>];<br/>
+<span class="macro">@end(<span class="name">globals</span>)</span><br/>
+</code></div>
+</div>
+<div class="page"><div class="slide"><div class="slide-nr">6</div>
+<code>
+<span class="macro">@add(<span class="name">globals</span>)</span><br/>
+<span class="in1"></span><span class="type">void</span> <span class="fn">printasc</span>(<span class="type">int</span> <span class="var">cnt</span>) {<br/>
+<span class="in2"></span><span class="var">row</span>[<span class="var">cnt</span>] = <span class="str">'\0'</span>;<br/>
+<span class="in2"></span><span class="keyword">for</span> (;<br/>
+<span class="in3"></span><span class="var">cnt</span> &lt; <span class="var">bytes_per_row</span>; ++<span class="var">cnt</span><br/>
+<span class="in2"></span>) {<br/>
+<span class="in3"></span><span class="type">std</span>::<span class="var">cout</span> &lt;&lt; <span class="str">"   "</span>;<br/>
+<span class="in2"></span>}<br/>
+<span class="in2"></span><span class="type">std</span>::<span class="var">cout</span> &lt;&lt; <span class="str">"  |"</span> &lt;&lt;<br/>
+<span class="in3"></span><span class="var">row</span> &lt;&lt; <span class="str">"|\n"</span>;<br/>
+<span class="in1"></span>}<br/>
+<span class="macro">@end(<span class="name">globals</span>)</span><br/>
+</code></div>
+</div>
+<div class="page"><div class="slide"><div class="slide-nr">7</div>
+<code>
+<span class="macro">@def(<span class="name">main</span>)</span><br/>
+<span class="in1"></span><span class="type">std</span>::<span class="var">cout</span> &lt;&lt; <span class="type">std</span>::<span class="fn">setfill</span>(<span class="str">'0'</span>) &lt;&lt;<br/>
+<span class="in2"></span><span class="type">std</span>::<span class="var">hex</span>;<br/>
+<span class="macro">@end(<span class="name">main</span>)</span><br/>
+</code></div>
+</div>
+<div class="page"><div class="slide"><div class="slide-nr">8</div>
+<code>
+<span class="macro">@add(<span class="name">main</span>)</span><br/>
+<span class="in1"></span><span class="var">size_t</span> <span class="var">count</span> { <span class="num">0</span> };<br/>
+<span class="in1"></span><span class="type">int</span> <span class="var">i</span> { <span class="num">0</span> };<br/>
+<span class="in1"></span><span class="keyword">for</span> (<span class="type">char</span> <span class="var">ch</span>; <span class="type">std</span>::<span class="var">cin</span>.<span class="fn">get</span>(<span class="var">ch</span>); ++<span class="var">i</span>) {<br/>
+<span class="in2"></span><span class="macro">@put(<span class="name">loop</span>)</span><br/>
+<span class="in1"></span>}<br/>
+<span class="macro">@end(<span class="name">main</span>)</span><br/>
+</code></div>
+</div>
+<div class="page"><div class="slide"><div class="slide-nr">9</div>
+<code>
+<span class="macro">@add(<span class="name">main</span>)</span><br/>
+<span class="in1"></span><span class="keyword">if</span> (<span class="var">i</span>) {<br/>
+<span class="in2"></span><span class="macro">@mul(<span class="name">finish line</span>)</span><br/>
+<span class="in2"></span><span class="macro">@mul(<span class="name">write count</span>)</span><br/>
+<span class="in2"></span><span class="type">std</span>::<span class="var">cout</span>.<span class="fn">put</span>(<span class="str">'\n'</span>);<br/>
+<span class="in1"></span>}<br/>
+<span class="macro">@end(<span class="name">main</span>)</span><br/>
+</code></div>
+</div>
+<div class="page"><div class="slide"><div class="slide-nr">10</div>
+<code>
+<span class="macro">@def(<span class="name">loop</span>)</span><br/>
+<span class="in1"></span><span class="keyword">if</span> (<span class="var">i</span> == <span class="var">bytes_per_row</span>) {<br/>
+<span class="in2"></span><span class="macro">@mul(<span class="name">finish line</span>)</span><br/>
+<span class="in1"></span>}<br/>
+<span class="macro">@end(<span class="name">loop</span>)</span><br/>
+</code></div>
+</div>
+<div class="page"><div class="slide"><div class="slide-nr">11</div>
+<code>
+<span class="macro">@add(<span class="name">loop</span>)</span><br/>
+<span class="in1"></span><span class="keyword">if</span> (<span class="var">i</span> == <span class="num">0</span>) {<br/>
+<span class="in2"></span><span class="macro">@mul(<span class="name">write count</span>)</span><br/>
+<span class="in1"></span>}<br/>
+<span class="macro">@end(<span class="name">loop</span>)</span><br/>
+</code></div>
+</div>
+<div class="page"><div class="slide"><div class="slide-nr">12</div>
+<code>
+<span class="macro">@add(<span class="name">loop</span>)</span><br/>
+<span class="in1"></span><span class="keyword">if</span> (<span class="var">i</span> % <span class="var">bytes_per_group</span> == <span class="num">0</span>) {<br/>
+<span class="in2"></span><span class="type">std</span>::<span class="var">cout</span>.<span class="fn">put</span>(<span class="str">' '</span>);<br/>
+<span class="in1"></span>}<br/>
+<span class="macro">@end(<span class="name">loop</span>)</span><br/>
+</code></div>
+</div>
+<div class="page"><div class="slide"><div class="slide-nr">13</div>
+<code>
+<span class="macro">@add(<span class="name">loop</span>)</span><br/>
+<span class="in1"></span><span class="type">std</span>::<span class="var">cout</span> &lt;&lt; <span class="str">' '</span> &lt;&lt;<br/>
+<span class="in2"></span><span class="type">std</span>::<span class="fn">setw</span>(<span class="num">2</span>) &lt;&lt; (<span class="var">ch</span> &amp; <span class="num">0xff</span>);<br/>
+<span class="macro">@end(<span class="name">loop</span>)</span><br/>
+</code></div>
+</div>
+<div class="page"><div class="slide"><div class="slide-nr">14</div>
+<code>
+<span class="macro">@add(<span class="name">loop</span>)</span><br/>
+<span class="in1"></span><span class="var">row</span>[<span class="var">i</span>] = <span class="fn">isprint</span>(<span class="var">ch</span>) ? <span class="var">ch</span> : <span class="str">'.'</span>;<br/>
+<span class="macro">@end(<span class="name">loop</span>)</span><br/>
+</code></div>
+</div>
+<div class="page"><div class="slide"><div class="slide-nr">15</div>
+<code>
+<span class="macro">@def(<span class="name">finish line</span>)</span><br/>
+<span class="in1"></span><span class="fn">printasc</span>(<span class="var">i</span>);<br/>
+<span class="in1"></span><span class="var">count</span> += <span class="var">i</span>; <span class="var">i</span> = <span class="num">0</span>;<br/>
+<span class="macro">@end(<span class="name">finish line</span>)</span><br/>
+</code></div>
+</div>
+<div class="page"><div class="slide"><div class="slide-nr">16</div>
+<code>
+<span class="macro">@def(<span class="name">write count</span>)</span><br/>
+<span class="in1"></span><span class="type">std</span>::<span class="var">cout</span> &lt;&lt; <span class="type">std</span>::<span class="fn">setw</span>(<span class="var">addr_size</span>) &lt;&lt;<br/>
+<span class="in2"></span><span class="var">count</span>;<br/>
+<span class="macro">@end(<span class="name">write count</span>)</span><br/>
+</code></div>
+</div>
+</body>
+</html>
