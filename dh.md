@@ -38,15 +38,23 @@
 
 ```
 @add(globals)
+	void pad_group(int cnt) {
+		if (cnt % bytes_per_group == 0) {
+			std::cout.put(' ');
+		}
+	}
+@end(globals)
+```
+
+```
+@add(globals)
 	void printasc(int cnt) {
 		row[cnt] = '\0';
 		for (;
 			cnt < bytes_per_row; ++cnt
 		) {
 			std::cout << "   ";
-			if (cnt % bytes_per_group == 0) {
-				std::cout.put(' ');
-			}
+			pad_group(cnt);
 		}
 		std::cout << "  |" <<
 			row << "|\n";
@@ -99,9 +107,7 @@
 
 ```
 @add(loop)
-	if (i % bytes_per_group == 0) {
-		std::cout.put(' ');
-	}
+	pad_group(i);
 @end(loop)
 ```
 

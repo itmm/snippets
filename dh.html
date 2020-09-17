@@ -59,15 +59,24 @@ coarse structure of the program
 <div class="page"><div class="slide"><div class="slide-nr">6</div>
 <code>
 <span class="macro">@add(<span class="name">globals</span>)</span><br/>
+<span class="in1"></span><span class="type">void</span> <span class="fn">pad_group</span>(<span class="type">int</span> <span class="var">cnt</span>) {<br/>
+<span class="in2"></span><span class="keyword">if</span> (<span class="var">cnt</span> % <span class="var">bytes_per_group</span> == <span class="num">0</span>) {<br/>
+<span class="in3"></span><span class="type">std</span>::<span class="var">cout</span>.<span class="fn">put</span>(<span class="str">' '</span>);<br/>
+<span class="in2"></span>}<br/>
+<span class="in1"></span>}<br/>
+<span class="macro">@end(<span class="name">globals</span>)</span><br/>
+</code></div>
+</div>
+<div class="page"><div class="slide"><div class="slide-nr">7</div>
+<code>
+<span class="macro">@add(<span class="name">globals</span>)</span><br/>
 <span class="in1"></span><span class="type">void</span> <span class="fn">printasc</span>(<span class="type">int</span> <span class="var">cnt</span>) {<br/>
 <span class="in2"></span><span class="var">row</span>[<span class="var">cnt</span>] = <span class="str">'\0'</span>;<br/>
 <span class="in2"></span><span class="keyword">for</span> (;<br/>
 <span class="in3"></span><span class="var">cnt</span> &lt; <span class="var">bytes_per_row</span>; ++<span class="var">cnt</span><br/>
 <span class="in2"></span>) {<br/>
 <span class="in3"></span><span class="type">std</span>::<span class="var">cout</span> &lt;&lt; <span class="str">"   "</span>;<br/>
-<span class="in3"></span><span class="keyword">if</span> (<span class="var">cnt</span> % <span class="var">bytes_per_group</span> == <span class="num">0</span>) {<br/>
-<span class="in4"></span><span class="type">std</span>::<span class="var">cout</span>.<span class="fn">put</span>(<span class="str">' '</span>);<br/>
-<span class="in3"></span>}<br/>
+<span class="in3"></span><span class="fn">pad_group</span>(<span class="var">cnt</span>);<br/>
 <span class="in2"></span>}<br/>
 <span class="in2"></span><span class="type">std</span>::<span class="var">cout</span> &lt;&lt; <span class="str">"  |"</span> &lt;&lt;<br/>
 <span class="in3"></span><span class="var">row</span> &lt;&lt; <span class="str">"|\n"</span>;<br/>
@@ -75,7 +84,7 @@ coarse structure of the program
 <span class="macro">@end(<span class="name">globals</span>)</span><br/>
 </code></div>
 </div>
-<div class="page"><div class="slide"><div class="slide-nr">7</div>
+<div class="page"><div class="slide"><div class="slide-nr">8</div>
 <code>
 <span class="macro">@def(<span class="name">main</span>)</span><br/>
 <span class="in1"></span><span class="type">std</span>::<span class="var">cout</span> &lt;&lt; <span class="type">std</span>::<span class="fn">setfill</span>(<span class="str">'0'</span>) &lt;&lt;<br/>
@@ -83,7 +92,7 @@ coarse structure of the program
 <span class="macro">@end(<span class="name">main</span>)</span><br/>
 </code></div>
 </div>
-<div class="page"><div class="slide"><div class="slide-nr">8</div>
+<div class="page"><div class="slide"><div class="slide-nr">9</div>
 <code>
 <span class="macro">@add(<span class="name">main</span>)</span><br/>
 <span class="in1"></span><span class="var">size_t</span> <span class="var">count</span> { <span class="num">0</span> };<br/>
@@ -94,7 +103,7 @@ coarse structure of the program
 <span class="macro">@end(<span class="name">main</span>)</span><br/>
 </code></div>
 </div>
-<div class="page"><div class="slide"><div class="slide-nr">9</div>
+<div class="page"><div class="slide"><div class="slide-nr">10</div>
 <code>
 <span class="macro">@add(<span class="name">main</span>)</span><br/>
 <span class="in1"></span><span class="keyword">if</span> (<span class="var">i</span>) {<br/>
@@ -105,7 +114,7 @@ coarse structure of the program
 <span class="macro">@end(<span class="name">main</span>)</span><br/>
 </code></div>
 </div>
-<div class="page"><div class="slide"><div class="slide-nr">10</div>
+<div class="page"><div class="slide"><div class="slide-nr">11</div>
 <code>
 <span class="macro">@def(<span class="name">loop</span>)</span><br/>
 <span class="in1"></span><span class="keyword">if</span> (<span class="var">i</span> == <span class="var">bytes_per_row</span>) {<br/>
@@ -114,7 +123,7 @@ coarse structure of the program
 <span class="macro">@end(<span class="name">loop</span>)</span><br/>
 </code></div>
 </div>
-<div class="page"><div class="slide"><div class="slide-nr">11</div>
+<div class="page"><div class="slide"><div class="slide-nr">12</div>
 <code>
 <span class="macro">@add(<span class="name">loop</span>)</span><br/>
 <span class="in1"></span><span class="keyword">if</span> (<span class="var">i</span> == <span class="num">0</span>) {<br/>
@@ -123,16 +132,14 @@ coarse structure of the program
 <span class="macro">@end(<span class="name">loop</span>)</span><br/>
 </code></div>
 </div>
-<div class="page"><div class="slide"><div class="slide-nr">12</div>
+<div class="page"><div class="slide"><div class="slide-nr">13</div>
 <code>
 <span class="macro">@add(<span class="name">loop</span>)</span><br/>
-<span class="in1"></span><span class="keyword">if</span> (<span class="var">i</span> % <span class="var">bytes_per_group</span> == <span class="num">0</span>) {<br/>
-<span class="in2"></span><span class="type">std</span>::<span class="var">cout</span>.<span class="fn">put</span>(<span class="str">' '</span>);<br/>
-<span class="in1"></span>}<br/>
+<span class="in1"></span><span class="fn">pad_group</span>(<span class="var">i</span>);<br/>
 <span class="macro">@end(<span class="name">loop</span>)</span><br/>
 </code></div>
 </div>
-<div class="page"><div class="slide"><div class="slide-nr">13</div>
+<div class="page"><div class="slide"><div class="slide-nr">14</div>
 <code>
 <span class="macro">@add(<span class="name">loop</span>)</span><br/>
 <span class="in1"></span><span class="type">std</span>::<span class="var">cout</span> &lt;&lt; <span class="str">' '</span> &lt;&lt;<br/>
@@ -140,14 +147,14 @@ coarse structure of the program
 <span class="macro">@end(<span class="name">loop</span>)</span><br/>
 </code></div>
 </div>
-<div class="page"><div class="slide"><div class="slide-nr">14</div>
+<div class="page"><div class="slide"><div class="slide-nr">15</div>
 <code>
 <span class="macro">@add(<span class="name">loop</span>)</span><br/>
 <span class="in1"></span><span class="var">row</span>[<span class="var">i</span>] = <span class="fn">isprint</span>(<span class="var">ch</span>) ? <span class="var">ch</span> : <span class="str">'.'</span>;<br/>
 <span class="macro">@end(<span class="name">loop</span>)</span><br/>
 </code></div>
 </div>
-<div class="page"><div class="slide"><div class="slide-nr">15</div>
+<div class="page"><div class="slide"><div class="slide-nr">16</div>
 <code>
 <span class="macro">@def(<span class="name">finish line</span>)</span><br/>
 <span class="in1"></span><span class="fn">printasc</span>(<span class="var">i</span>);<br/>
@@ -155,7 +162,7 @@ coarse structure of the program
 <span class="macro">@end(<span class="name">finish line</span>)</span><br/>
 </code></div>
 </div>
-<div class="page"><div class="slide"><div class="slide-nr">16</div>
+<div class="page"><div class="slide"><div class="slide-nr">17</div>
 <code>
 <span class="macro">@def(<span class="name">write count</span>)</span><br/>
 <span class="in1"></span><span class="type">std</span>::<span class="var">cout</span> &lt;&lt; <span class="type">std</span>::<span class="fn">setw</span>(<span class="var">addr_size</span>) &lt;&lt;<br/>
