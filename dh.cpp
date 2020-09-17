@@ -31,6 +31,9 @@
 			cnt < bytes_per_row; ++cnt
 		) {
 			std::cout << "   ";
+			if (cnt % bytes_per_group == 0) {
+				std::cout.put(' ');
+			}
 		}
 		std::cout << "  |" <<
 			row << "|\n";
@@ -40,80 +43,80 @@
 
 	int main() {
 		
-#line 55 "dh.md"
+#line 58 "dh.md"
 
 	std::cout << std::setfill('0') <<
 		std::hex;
 
-#line 62 "dh.md"
+#line 65 "dh.md"
 
 	size_t count { 0 };
 	int i { 0 };
 	for (char ch; std::cin.get(ch); ++i) {
 		
-#line 82 "dh.md"
+#line 85 "dh.md"
 
 	if (i == bytes_per_row) {
 		
-#line 119 "dh.md"
+#line 122 "dh.md"
 
 	printasc(i);
 	count += i; i = 0;
 
-#line 84 "dh.md"
+#line 87 "dh.md"
 
 	}
 
-#line 90 "dh.md"
+#line 93 "dh.md"
 
 	if (i == 0) {
 		
-#line 126 "dh.md"
+#line 129 "dh.md"
 
 	std::cout << std::setw(addr_size) <<
 		count;
 
-#line 92 "dh.md"
+#line 95 "dh.md"
 
 	}
 
-#line 98 "dh.md"
+#line 101 "dh.md"
 
 	if (i % bytes_per_group == 0) {
 		std::cout.put(' ');
 	}
 
-#line 106 "dh.md"
+#line 109 "dh.md"
 
 	std::cout << ' ' <<
 		std::setw(2) << (ch & 0xff);
 
-#line 113 "dh.md"
+#line 116 "dh.md"
 
 	row[i] = isprint(ch) ? ch : '.';
 
-#line 66 "dh.md"
+#line 69 "dh.md"
 
 	}
 
-#line 72 "dh.md"
+#line 75 "dh.md"
 
 	if (i) {
 		
-#line 119 "dh.md"
+#line 122 "dh.md"
 
 	printasc(i);
 	count += i; i = 0;
 
-#line 74 "dh.md"
+#line 77 "dh.md"
 
 		
-#line 126 "dh.md"
+#line 129 "dh.md"
 
 	std::cout << std::setw(addr_size) <<
 		count;
 
-#line 75 "dh.md"
+#line 78 "dh.md"
 
 		std::cout.put('\n');
 	}

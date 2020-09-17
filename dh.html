@@ -65,6 +65,9 @@ coarse structure of the program
 <span class="in3"></span><span class="var">cnt</span> &lt; <span class="var">bytes_per_row</span>; ++<span class="var">cnt</span><br/>
 <span class="in2"></span>) {<br/>
 <span class="in3"></span><span class="type">std</span>::<span class="var">cout</span> &lt;&lt; <span class="str">"   "</span>;<br/>
+<span class="in3"></span><span class="keyword">if</span> (<span class="var">cnt</span> % <span class="var">bytes_per_group</span> == <span class="num">0</span>) {<br/>
+<span class="in4"></span><span class="type">std</span>::<span class="var">cout</span>.<span class="fn">put</span>(<span class="str">' '</span>);<br/>
+<span class="in3"></span>}<br/>
 <span class="in2"></span>}<br/>
 <span class="in2"></span><span class="type">std</span>::<span class="var">cout</span> &lt;&lt; <span class="str">"  |"</span> &lt;&lt;<br/>
 <span class="in3"></span><span class="var">row</span> &lt;&lt; <span class="str">"|\n"</span>;<br/>

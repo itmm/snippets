@@ -44,6 +44,9 @@
 			cnt < bytes_per_row; ++cnt
 		) {
 			std::cout << "   ";
+			if (cnt % bytes_per_group == 0) {
+				std::cout.put(' ');
+			}
 		}
 		std::cout << "  |" <<
 			row << "|\n";
