@@ -1,6 +1,6 @@
 #include <iostream>
-	#include <iomanip>
-	#include <cctype>
+#include <iomanip>
+#include <cctype>
 
 constexpr int bytes_per_row { 16 };
 constexpr int bytes_per_group { 8 };
