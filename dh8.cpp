@@ -2,9 +2,9 @@
 #include <iomanip>
 #include <cctype>
 
-constexpr int bytes_per_row { 16 };
-constexpr int bytes_per_group { 8 };
-constexpr int addr_size { 2 * sizeof(size_t) };
+constexpr int bytes_per_row { 8 };
+constexpr int bytes_per_group { 4 };
+constexpr int addr_size { 4 };
 
 static char row[bytes_per_row + 1];
 
